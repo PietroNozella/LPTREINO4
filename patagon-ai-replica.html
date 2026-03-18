@@ -1,0 +1,1024 @@
+<!-- Réplica de: https://www.patagon.ai/pt/lps/qualificacao-de-leads-com-ia -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>| PatagonAI</title>
+<style>
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("https://cdn.prod.website-files.com/66720261788977c9cce4348c/669a6e69bdcf1d989e6bda2d_Satoshi-Variable.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --bg-primary: #1e1d1d;
+  --bg-secondary: #edd5b2;
+  --text-primary: white;
+  --text-secondary: #edd5b2;
+  --khaki: #c2aa8f;
+  --orange: #e55d1a;
+  --green: #25d366;
+  --dark-green-bg: rgba(37,211,102,0.1);
+  --border-light: rgba(255,255,255,0.1);
+  --border-medium: rgba(255,255,255,0.2);
+  --gray-text: #9e8f7f;
+  --card-bg: #2a2929;
+  --card-border: rgba(255,255,255,0.08);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Satoshi Variable", -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 32px); max-width: 1280px; z-index: 1000;
+  background: rgba(30,29,29,0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1.6px solid rgba(255,255,255,0.2);
+  border-radius: 1000px; padding: 0 20px 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.navbar-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; }
+.navbar-logo svg { width: 36px; height: 36px; }
+.btn-primary {
+  background: var(--bg-secondary); color: var(--bg-primary);
+  padding: 12px 24px; border-radius: 1000px; font-weight: 600;
+  font-size: 14px; border: none; cursor: pointer; display: inline-block;
+  transition: opacity 0.3s, transform 0.2s; font-family: inherit;
+}
+.btn-primary:hover { opacity: 0.9; transform: scale(1.03); }
+.btn-outline {
+  background: transparent; color: white; padding: 12px 24px;
+  border-radius: 1000px; font-weight: 600; font-size: 14px;
+  border: none; cursor: pointer; display: inline-flex;
+  align-items: center; gap: 8px; transition: opacity 0.3s; font-family: inherit;
+}
+.btn-outline:hover { opacity: 0.8; }
+.btn-whatsapp-green {
+  background: var(--green); color: var(--bg-primary);
+  padding: 12px 24px; border-radius: 1000px; font-weight: 600;
+  font-size: 14px; border: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: transform 0.3s; font-family: inherit;
+}
+.btn-whatsapp-green:hover { transform: scale(1.05); }
+
+/* ========== HERO ========== */
+.hero { padding: 140px 0 60px; position: relative; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1000px; padding: 8px 16px; font-size: 13px;
+  color: var(--text-secondary); margin-bottom: 24px;
+}
+.hero h1 { font-size: clamp(36px, 4.5vw, 60px); font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+.hero-desc { color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.6; margin-bottom: 32px; max-width: 560px; }
+.hero-buttons { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+.hero-stats { display: flex; gap: 0; border-top: 1px solid var(--border-light); }
+.hero-stat { padding: 24px 32px 24px 0; border-right: 1px solid var(--border-light); min-width: 160px; }
+.hero-stat:last-child { border-right: none; }
+.hero-stat .number { font-size: 40px; font-weight: 700; }
+.hero-stat .label { font-size: 14px; color: rgba(255,255,255,0.6); }
+
+/* Chat mockup */
+.hero-chat { position: relative; min-height: 460px; }
+.hero-bg-mountain {
+  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+  width: 300px; height: 380px;
+  background: linear-gradient(180deg, rgba(194,170,143,0.3) 0%, rgba(100,85,65,0.15) 60%, transparent 100%);
+  clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
+}
+.hero-bg-mountain2 {
+  position: absolute; top: 60px; left: 30%; transform: translateX(-50%);
+  width: 220px; height: 340px;
+  background: linear-gradient(180deg, rgba(140,120,90,0.2) 0%, rgba(60,50,40,0.1) 60%, transparent 100%);
+  clip-path: polygon(50% 0%, 10% 100%, 90% 100%);
+}
+.whatsapp-icon-top {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  width: 52px; height: 52px; background: var(--green); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; z-index: 5;
+}
+.chat-container { position: relative; z-index: 3; padding-top: 30px; }
+.chat-row { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 16px; }
+.chat-row.right { justify-content: flex-end; }
+.chat-bubble {
+  background: var(--bg-secondary); color: var(--bg-primary);
+  padding: 16px 20px; border-radius: 16px; font-size: 14px;
+  max-width: 310px; line-height: 1.4;
+}
+.chat-bubble.ai {
+  background: rgba(255,255,255,0.08); color: white;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+}
+.chat-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; overflow: hidden;
+}
+.chat-avatar.bot { background: var(--khaki); }
+.chat-avatar.user { background: #777; color: white; font-size: 11px; }
+
+/* ========== PROBLEM SECTION ========== */
+.problem-section { padding: 100px 0; }
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.problem-tag { color: var(--text-secondary); font-size: 16px; font-weight: 500; margin-bottom: 16px; font-style: italic; }
+.problem-section h2 { font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; margin-bottom: 24px; }
+.problem-desc { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
+.stat-cards { display: flex; flex-direction: column; gap: 16px; }
+.stat-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--orange);
+  border-radius: 16px; padding: 32px; position: relative;
+}
+.stat-card .close-icon {
+  position: absolute; top: 16px; right: 16px;
+  width: 28px; height: 28px; background: var(--orange); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: white;
+}
+.stat-card .stat-number { font-size: 64px; font-weight: 700; margin-bottom: 8px; }
+.stat-card .stat-label { color: rgba(255,255,255,0.8); font-size: 15px; }
+
+/* ========== LOGOS ========== */
+.logos-section { padding: 60px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.logos-grid { display: grid; grid-template-columns: 280px repeat(6, 1fr); gap: 24px; align-items: center; }
+.logos-text { font-size: 20px; font-weight: 700; line-height: 1.3; }
+.logo-item {
+  display: flex; align-items: center; justify-content: center;
+  height: 50px; opacity: 0.5; font-size: 12px; color: rgba(255,255,255,0.6);
+  font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+}
+
+/* ========== HOW IT WORKS ========== */
+.how-section { padding: 100px 0; text-align: center; border-top: 1px solid var(--border-light); }
+.section-tag { color: var(--text-secondary); font-size: 16px; font-weight: 500; margin-bottom: 16px; }
+.how-section h2 { font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+.how-section .subtitle { color: rgba(255,255,255,0.6); font-size: 16px; max-width: 640px; margin: 0 auto 60px; }
+.how-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-bottom: 0; }
+.how-card-visual {
+  height: 220px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.how-card-visual .placeholder-chat {
+  background: rgba(237,213,178,0.2); color: var(--bg-primary); padding: 14px 20px;
+  border-radius: 12px 12px 12px 4px; font-size: 13px; font-weight: 500;
+  position: relative;
+}
+.how-card-visual .placeholder-chat .bot-icon {
+  display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; color: rgba(30,29,29,0.5);
+}
+.how-card-visual .placeholder-stars {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  padding: 16px 24px; border-radius: 12px; text-align: center;
+}
+.how-card-visual .placeholder-stars .title { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+.how-card-visual .placeholder-stars .stars { font-size: 28px; color: var(--khaki); }
+.how-card-visual .placeholder-contact {
+  background: linear-gradient(135deg, rgba(237,213,178,0.15), rgba(194,170,143,0.1));
+  border: 1px solid rgba(255,255,255,0.1); padding: 16px 20px;
+  border-radius: 12px; text-align: left;
+}
+.how-card-visual .placeholder-contact .name { font-weight: 700; font-size: 15px; }
+.how-card-visual .placeholder-contact .phone { font-size: 12px; color: rgba(255,255,255,0.5); }
+.how-card-visual .placeholder-contact .rating { color: var(--khaki); font-size: 14px; margin-top: 4px; }
+.progress-line { display: flex; align-items: center; padding: 0; }
+.progress-segment { flex: 1; height: 3px; background: var(--orange); }
+.progress-dot { width: 12px; height: 12px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
+.how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.how-step { padding: 24px 24px; text-align: center; }
+.how-step h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+.how-step p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.5; }
+.how-step .step-label { font-size: 13px; color: var(--gray-text); margin-top: 16px; font-weight: 500; }
+.how-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 48px; }
+
+/* ========== FEATURES ========== */
+.features-section { padding: 80px 0; border-top: 1px solid var(--border-light); }
+.features-header { text-align: center; margin-bottom: 80px; }
+.features-header h2 { font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; }
+.feature-block { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 100px; }
+.feature-block.reversed .feature-content { order: 2; }
+.feature-block.reversed .feature-visual { order: 1; }
+.feature-tag { color: var(--text-secondary); font-size: 16px; font-weight: 500; margin-bottom: 12px; }
+.feature-block h3 { font-size: clamp(28px, 3vw, 42px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+.feature-block .desc { color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.6; margin-bottom: 24px; }
+.feature-list { list-style: none; }
+.feature-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; font-size: 15px; color: rgba(255,255,255,0.85);
+}
+.check-icon { color: var(--text-secondary); flex-shrink: 0; font-size: 16px; margin-top: 2px; }
+.feature-visual {
+  min-height: 350px; background: rgba(255,255,255,0.02);
+  border-radius: 16px; display: flex; align-items: center;
+  justify-content: center; padding: 24px;
+  border: 1px solid var(--card-border);
+  color: rgba(255,255,255,0.4); font-size: 14px; text-align: center;
+}
+
+/* ========== TESTIMONIAL ========== */
+.testimonial-section { padding: 80px 0; text-align: center; }
+.testimonial-section h2 {
+  font-size: clamp(32px, 3.5vw, 52px); font-weight: 700;
+  line-height: 1.15; margin-bottom: 16px; font-style: italic;
+}
+.testimonial-section > .container > .subtitle {
+  color: rgba(255,255,255,0.6); font-size: 16px;
+  max-width: 640px; margin: 0 auto 40px;
+}
+.testimonial-card {
+  max-width: 720px; margin: 0 auto; border-radius: 16px;
+  overflow: hidden; position: relative;
+}
+.testimonial-video {
+  width: 100%; min-height: 400px;
+  background: linear-gradient(135deg, #5a4a2a, #3a3025, #2a2520);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 32px; position: relative;
+}
+.testimonial-badge {
+  position: absolute; top: auto; bottom: 160px; left: 32px;
+  background: rgba(0,0,0,0.6); color: white; padding: 6px 14px;
+  border-radius: 8px; font-size: 13px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.testimonial-quote {
+  font-size: 18px; font-weight: 500; line-height: 1.4;
+  text-align: left; color: white; max-width: 520px;
+}
+.play-btn {
+  position: absolute; bottom: 32px; right: 32px;
+  width: 52px; height: 52px; background: var(--khaki);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; transition: transform 0.3s;
+  border: none;
+}
+.play-btn:hover { transform: scale(1.1); }
+.play-btn svg { margin-left: 3px; }
+
+/* ========== COMPARISON TABLE ========== */
+.comparison-section { padding: 80px 0; }
+.comparison-section .section-header { margin-bottom: 48px; }
+.comparison-section h2 { font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; }
+.comp-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.comp-table th, .comp-table td { padding: 20px 24px; text-align: left; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.comp-table thead th { font-weight: 700; font-size: 15px; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+.comp-table thead th:first-child { color: rgba(255,255,255,0.6); font-weight: 700; }
+.comp-table thead th.col-patagon { color: var(--green); }
+.comp-table thead th.col-other { color: rgba(255,255,255,0.5); font-weight: 600; }
+.comp-table tbody td:first-child { color: rgba(255,255,255,0.6); font-weight: 500; }
+.comp-table tbody td.cell-patagon {
+  background: var(--dark-green-bg); font-weight: 600; color: white;
+  border-left: 1px solid rgba(37,211,102,0.15);
+  border-right: 1px solid rgba(37,211,102,0.15);
+}
+.comp-table tbody tr:first-child td.cell-patagon { border-top: 1px solid rgba(37,211,102,0.15); }
+.comp-table tbody tr:last-child td.cell-patagon { border-bottom: 1px solid rgba(37,211,102,0.15); }
+.comp-table thead th.col-patagon-header {
+  background: var(--dark-green-bg);
+  border-left: 1px solid rgba(37,211,102,0.15);
+  border-right: 1px solid rgba(37,211,102,0.15);
+  border-top: 1px solid rgba(37,211,102,0.15);
+}
+.comp-table tbody td.cell-other { color: rgba(255,255,255,0.45); }
+.check-g { color: var(--green); margin-right: 8px; }
+.x-mark { color: rgba(255,255,255,0.25); margin-right: 8px; }
+.comp-table tbody td.cell-patagon .check-g + span,
+.comp-table tbody td.cell-other .x-mark + span { vertical-align: middle; }
+
+/* ========== FAQ ========== */
+.faq-section { padding: 80px 0; }
+.faq-section h2 { font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+.faq-section .subtitle { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 48px; }
+.faq-item { border-top: 1px solid var(--border-light); }
+.faq-item:last-of-type { border-bottom: 1px solid var(--border-light); }
+.faq-question {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; cursor: pointer; font-weight: 700; font-size: 16px;
+  transition: color 0.3s; user-select: none;
+}
+.faq-question:hover { color: var(--text-secondary); }
+.faq-arrow { font-size: 20px; transition: transform 0.3s; color: rgba(255,255,255,0.5); flex-shrink: 0; margin-left: 16px; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
+  color: rgba(255,255,255,0.6); font-size: 15px; line-height: 1.6;
+}
+.faq-item.open .faq-answer { max-height: 200px; padding-bottom: 24px; }
+.faq-cta {
+  margin-top: 48px; background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-light); border-radius: 16px;
+  padding: 24px 32px; display: flex; align-items: center;
+  justify-content: space-between;
+}
+.faq-cta-text { font-size: 16px; }
+.faq-cta-text strong { font-weight: 700; }
+
+/* ========== TRUST BADGES ========== */
+.trust-section { padding: 60px 0; }
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.trust-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 32px; display: flex; flex-direction: column; justify-content: center;
+  min-height: 160px;
+}
+.trust-card.meta-card { background: linear-gradient(135deg, #1a2744 0%, #1a2030 100%); }
+.trust-card .trust-icon {
+  width: 48px; height: 48px; background: var(--orange); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 16px; color: white;
+}
+.trust-card h4 { font-size: 18px; font-weight: 600; line-height: 1.3; }
+.meta-inner { display: flex; align-items: center; gap: 20px; }
+.meta-logo-box {
+  background: white; border-radius: 8px; padding: 10px 14px;
+  display: flex; flex-direction: column; align-items: flex-start; flex-shrink: 0;
+}
+.meta-logo-box .meta-icon { color: #0082fb; font-weight: 800; font-size: 18px; }
+.meta-logo-box .meta-sub { font-size: 10px; color: #555; font-weight: 500; }
+
+/* ========== FINAL CTA ========== */
+.final-cta {
+  padding: 120px 0 80px; text-align: center; position: relative;
+  overflow: hidden;
+}
+.final-cta-bg {
+  position: absolute; inset: 0;
+  background: 
+    linear-gradient(180deg, var(--bg-primary) 0%, rgba(40,36,32,0.4) 50%, var(--bg-primary) 100%);
+  z-index: 0;
+}
+.final-cta .container { position: relative; z-index: 1; }
+.final-cta .arrows { margin-bottom: 24px; }
+.final-cta .arrows svg { opacity: 0.5; }
+.final-cta h2 { font-size: clamp(36px, 4vw, 56px); font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+.final-cta .subtitle { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 32px; }
+.cta-buttons { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; }
+.cta-note {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 14px; color: rgba(255,255,255,0.5);
+}
+.cta-note .check-blue { color: #4da6ff; }
+
+/* ========== FOOTER ========== */
+.footer { padding: 60px 0 40px; border-top: 1px solid var(--border-light); }
+.footer-top { display: flex; align-items: center; margin-bottom: 80px; }
+.footer-logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; letter-spacing: 1.5px; text-transform: uppercase; }
+.footer-logo svg { width: 52px; height: 52px; }
+.footer-bottom {
+  display: flex; align-items: center; gap: 24px;
+  font-size: 13px; color: var(--gray-text);
+  border-top: 1px solid var(--border-light); padding-top: 24px;
+}
+.footer-bottom a { color: var(--gray-text); transition: color 0.3s; }
+.footer-bottom a:hover { color: white; }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.animate { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .hero-grid, .problem-grid, .feature-block { grid-template-columns: 1fr; }
+  .feature-block.reversed .feature-content { order: 1; }
+  .feature-block.reversed .feature-visual { order: 2; }
+  .logos-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .how-cards, .how-steps { grid-template-columns: 1fr; }
+  .progress-line { display: none; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .comp-table { font-size: 12px; }
+  .comp-table th, .comp-table td { padding: 12px 10px; }
+  .navbar { width: calc(100% - 16px); padding: 0 16px; }
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stat { min-width: 120px; }
+  .faq-cta { flex-direction: column; gap: 16px; text-align: center; }
+  .hero-chat { display: none; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .meta-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+  <a href="#" class="navbar-logo">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="#c2aa8f"/>
+      <path d="M35 55L20 85H35L42 70L35 55Z" fill="#edd5b2" opacity="0.7"/>
+      <path d="M65 55L80 85H65L58 70L65 55Z" fill="#edd5b2" opacity="0.7"/>
+    </svg>
+    PATAGON AI
+  </a>
+  <a href="#" class="btn-primary">Começar grátis</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>🌐</span>
+          <span>A Plataforma de Marketing Experience para o Brasil</span>
+        </div>
+        <h1>Pare de otimizar por cliques. Comece a otimizar por receita.</h1>
+        <p class="hero-desc">A Patagon AI implementa agentes de IA autônomos que qualificam leads pelo WhatsApp, atribuem cada conversa à campanha que a gerou e enviam sinais de qualidade de volta às plataformas de ads. 68% de redução no CAC. Resultados em semanas.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary">Começar grátis</a>
+          <a href="#" class="btn-outline">Fale conosco <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.627.616l4.584-1.163A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.239 0-4.332-.726-6.033-1.96l-.424-.316-2.785.707.742-2.71-.346-.45A9.947 9.947 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="number">-68%</div>
+            <div class="label">Custo de aquisição</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number">+50%</div>
+            <div class="label">Leads qualificados</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number">24/7</div>
+            <div class="label">Qualificação automática</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-chat">
+        <div class="hero-bg-mountain"></div>
+        <div class="hero-bg-mountain2"></div>
+        <div class="whatsapp-icon-top">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+        </div>
+        <div class="chat-container">
+          <div class="chat-row right">
+            <div class="chat-bubble">Investimos R$400K/mês em mídia mas o custo por lead só aumenta.</div>
+            <div class="chat-avatar user" style="background:#888;">👤</div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-avatar bot">
+              <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="#1e1d1d"/></svg>
+            </div>
+            <div class="chat-bubble ai">É muito comum — a maior parte desse investimento se perde em leads não qualificados.</div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-avatar bot">
+              <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="#1e1d1d"/></svg>
+            </div>
+            <div class="chat-bubble ai">E se você só pagasse por leads prontos para comprar?</div>
+          </div>
+          <div class="chat-row right">
+            <div class="chat-bubble">Isso mudaria tudo. Como funciona?</div>
+            <div class="chat-avatar user" style="background:#888;">👤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROBLEM SECTION ========== -->
+<section class="problem-section animate">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <p class="problem-tag">Mais leads = mais trabalho manual.</p>
+        <h2>O WhatsApp converte 25 vezes mais que os formulários. Mas sem IA, não escala.</h2>
+        <p class="problem-desc">Sem IA, sua equipe não consegue qualificar o volume gerado pelo WhatsApp.</p>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="close-icon">✕</div>
+          <div class="stat-number">87%</div>
+          <div class="stat-label">Dos leads não atendem aos critérios de vendas.</div>
+        </div>
+        <div class="stat-card">
+          <div class="close-icon">✕</div>
+          <div class="stat-number">21x</div>
+          <div class="stat-label">mais provável que se qualifique se você responder em 5 minutos.</div>
+        </div>
+        <div class="stat-card">
+          <div class="close-icon">✕</div>
+          <div class="stat-number">54%</div>
+          <div class="stat-label">Dos leads chegam fora do horário comercial.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LOGOS ========== -->
+<section class="logos-section animate">
+  <div class="container">
+    <div class="logos-grid">
+      <div class="logos-text">Mais de 150 equipes de marketing já otimizam suas campanhas com a Patagon AI</div>
+      <div class="logo-item">CHEVROLET</div>
+      <div class="logo-item">GUARDIANA</div>
+      <div class="logo-item">MITSUBISHI</div>
+      <div class="logo-item">🚗 TOYOTA</div>
+      <div class="logo-item">ALVAREZ BRAVO</div>
+      <div class="logo-item">AUTOS OK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="how-section animate">
+  <div class="container">
+    <p class="section-tag">Como a Patagon AI funciona</p>
+    <h2>IA que trabalha seus leads enquanto você dorme</h2>
+    <p class="subtitle">Um agente que responde em segundos, filtra com seus critérios de qualificação e agenda reuniões com os melhores.</p>
+    
+    <div class="how-cards">
+      <div class="how-card-visual">
+        <div class="placeholder-chat">
+          Hello! How can I help you?
+          <div class="bot-icon">
+            <svg width="14" height="14" viewBox="0 0 100 100" fill="none"><path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="rgba(30,29,29,0.4)"/></svg>
+            11:15 pm
+          </div>
+        </div>
+      </div>
+      <div class="how-card-visual">
+        <div class="placeholder-stars">
+          <div class="title">Real Time Qualification</div>
+          <div class="stars">★★★★☆</div>
+        </div>
+      </div>
+      <div class="how-card-visual">
+        <div class="placeholder-contact">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:#888;display:flex;align-items:center;justify-content:center;">👤</div>
+            <div>
+              <div class="name">Lucas Santos</div>
+              <div class="phone">+55 11 98765-4321</div>
+              <div class="rating">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="progress-line">
+      <div class="progress-dot"></div>
+      <div class="progress-segment"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-segment"></div>
+      <div class="progress-dot"></div>
+    </div>
+    
+    <div class="how-steps">
+      <div class="how-step">
+        <h3>Responde instantaneamente</h3>
+        <p>Nosso agente de IA responde a cada lead em questão de segundos. Não perca potenciais clientes por demorar a responder.</p>
+        <p class="step-label">Etapa 01</p>
+      </div>
+      <div class="how-step">
+        <h3>Qualifica com os seus critérios</h3>
+        <p>Defina o que faz de um potencial cliente alguém qualificado para o seu negócio. O agente avalia cada conversa automaticamente.</p>
+        <p class="step-label">Etapa 02</p>
+      </div>
+      <div class="how-step">
+        <h3>Agende com os melhores</h3>
+        <p>Só chegam potenciais clientes prontos para comprar, com uma reunião já agendada. Sua equipe foca em fechar negócio, não em correr atrás.</p>
+        <p class="step-label">Etapa 03</p>
+      </div>
+    </div>
+    
+    <div class="how-buttons">
+      <a href="#" class="btn-primary">Começar grátis</a>
+      <a href="#" class="btn-outline">Fale conosco <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURES SECTION ========== -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-header animate">
+      <p class="section-tag">Principais funcionalidades</p>
+      <h2>IA que gera mais leads qualificados ao menor custo.</h2>
+    </div>
+
+    <!-- Feature 1: Qualificação -->
+    <div class="feature-block animate">
+      <div class="feature-content">
+        <p class="feature-tag">Qualificação de leads</p>
+        <h3>Agentes de IA que qualificam e agendam por você</h3>
+        <p class="desc">Defina seus critérios de qualificação. O agente avalia todos os leads em tempo real, agenda reuniões com os melhores e direciona para a sua equipe apenas aqueles que estão prontos para comprar.</p>
+        <ul class="feature-list">
+          <li><span class="check-icon">✓</span> Qualifica por orçamento, necessidade, cronograma, autoridade... o que você precisar</li>
+          <li><span class="check-icon">✓</span> Agenda reuniões diretamente na agenda da sua equipe</li>
+          <li><span class="check-icon">✓</span> Responde 24/7 em segundos</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="text-align:left;width:100%;">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;margin-bottom:12px;">
+            <div style="font-weight:600;margin-bottom:8px;">Lead Detail</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <span>👤</span> <span style="font-weight:600;">Nguyen, Shane</span> <span style="color:var(--orange);">|||</span>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);">+54 911 156 045 7873</div>
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;">
+              <div style="display:flex;justify-content:space-between;"><span>⭐ Qualification</span><span style="color:var(--khaki);">★★★★☆</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>😊 Sentiment</span><span>😐 😊 😄 🟢</span></div>
+              <div><span>🎯 Intent</span><div style="color:rgba(255,255,255,0.5);font-size:12px;margin-top:4px;">To explore AI solutions for improving client management</div></div>
+            </div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 16px;font-size:13px;">
+            <span style="color:var(--khaki);">★★★★★</span> Real Time Qualification
+          </div>
+          <div style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.5);border-radius:8px;padding:6px 12px;font-size:12px;">
+            <span style="color:var(--green);">Lead Sentiment</span><br>
+            <span style="font-weight:700;">😊 Positive</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Otimização -->
+    <div class="feature-block reversed animate">
+      <div class="feature-content">
+        <p class="feature-tag">Otimização</p>
+        <h3>Otimize suas campanhas para leads qualificados</h3>
+        <p class="desc">Envie leads qualificados como conversão para a Meta e o Google. O algoritmo aprende quais públicos geram compradores reais e atrai mais deles.</p>
+        <ul class="feature-list">
+          <li><span class="check-icon">✓</span> Conversões para Meta Ads, Google Ads e mais</li>
+          <li><span class="check-icon">✓</span> -68% de CPA em média</li>
+          <li><span class="check-icon">✓</span> +50% na taxa de conversão de leads qualificados</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="text-align:center;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;">[Imagem: Gráfico de otimização de campanhas com linhas de conversão e badges Google Ads 4.5 / Meta 4.2]</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(237,213,178,0.15);border-radius:8px;padding:10px 20px;">
+            <span style="font-size:13px;">Conversion Rate</span>
+            <span style="font-size:22px;font-weight:700;">+50%</span>
+            <span style="color:#4da6ff;">✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Atribuição -->
+    <div class="feature-block animate">
+      <div class="feature-content">
+        <p class="feature-tag">Atribuição</p>
+        <h3>Veja quais campanhas geram vendas reais</h3>
+        <p class="desc">É impossível mensurar o WhatsApp devido à sua criptografia. A Patagon AI mostra quais campanhas, conjuntos de anúncios e anúncios geram leads qualificados.</p>
+        <ul class="feature-list">
+          <li><span class="check-icon">✓</span> Rastreamento UTM completo: campanha, conjunto de anúncios, anúncio, palavra-chave</li>
+          <li><span class="check-icon">✓</span> Identifica quais canais geram potenciais clientes que realmente fecham negócio</li>
+          <li><span class="check-icon">✓</span> Custo real por lead qualificado, não por clique</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="text-align:center;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);">[Imagem: Dashboard de atribuição com Traffic Source Analytics, gráfico de barras por fonte, e integração Google Ads Connected]</div>
+          <div style="margin-top:16px;display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:8px;padding:12px 20px;">
+            <span style="font-size:28px;font-weight:700;">4.2</span>
+            <span style="color:var(--khaki);font-size:14px;">★★★★☆</span>
+            <span style="font-size:12px;color:rgba(255,255,255,0.4);">410 Conversations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4: Lifecycle -->
+    <div class="feature-block reversed animate">
+      <div class="feature-content">
+        <p class="feature-tag">Lifecycle</p>
+        <h3>Follow-up automático que recupera pipeline</h3>
+        <p class="desc">Nosso agente retoma o contato com os potenciais clientes que demonstraram interesse, mas não avançaram. Mais conversões com o mesmo orçamento de anúncios.</p>
+        <ul class="feature-list">
+          <li><span class="check-icon">✓</span> Retoma o contato com os potenciais clientes que deixaram a conversa no meio do caminho</li>
+          <li><span class="check-icon">✓</span> Envia ofertas relevantes com base nos interesses anteriores deles</li>
+          <li><span class="check-icon">✓</span> Detecta quando estão prontos e os direciona para a equipe de Vendas</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="width:100%;text-align:left;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:10px;padding:14px 18px;border-left:3px solid var(--orange);">
+              <div><div style="font-weight:600;font-size:14px;">Demo Presentation Follow-Up</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">📅 October 6, 2025</div></div>
+              <span style="margin-left:auto;color:var(--khaki);">✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:10px;padding:14px 18px;border-left:3px solid var(--orange);">
+              <div><div style="font-weight:600;font-size:14px;">Proposal Sent</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">📅 October 7, 2025</div></div>
+              <span style="margin-left:auto;color:var(--khaki);">✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:10px;padding:14px 18px;border-left:3px solid var(--khaki);">
+              <div><div style="font-weight:600;font-size:14px;">Re-Engage</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">📅 October 9, 2025</div></div>
+              <span style="margin-left:auto;color:var(--khaki);">✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(37,211,102,0.08);border-radius:10px;padding:14px 18px;border-left:3px solid var(--green);">
+              <div><div style="font-weight:600;font-size:14px;">New Status: Converted</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">📅 October 10, 2025</div></div>
+              <span style="margin-left:auto;color:var(--green);">✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 5: Outbound -->
+    <div class="feature-block animate">
+      <div class="feature-content">
+        <p class="feature-tag">Outbound</p>
+        <h3>Outbound com resposta automática</h3>
+        <p class="desc">Ative a base de dados existente. Faça o upload de um CSV e envie mensagens proativas. Nosso agente responde automaticamente a quem responder.</p>
+        <ul class="feature-list">
+          <li><span class="check-icon">✓</span> Importe contatos via CSV ou do seu CRM</li>
+          <li><span class="check-icon">✓</span> Envie promoções, lançamentos ou reativações</li>
+          <li><span class="check-icon">✓</span> Meçat os resultados de cada campanha.</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="text-align:center;">
+          <div style="margin-bottom:16px;">
+            <div style="display:inline-block;background:var(--green);color:white;padding:4px 12px;border-radius:4px;font-size:12px;font-weight:700;margin-bottom:8px;">CVS</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);">[Imagem: documento CSV + mensagem WhatsApp proativa]</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 20px;text-align:left;max-width:300px;margin:0 auto;">
+            <p style="font-size:14px;line-height:1.4;margin-bottom:8px;">Hi! We just launched a new way to turn your existing database into revenue. Want a quick overview?</p>
+            <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,0.4);">
+              <svg width="14" height="14" viewBox="0 0 100 100" fill="none"><path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="rgba(255,255,255,0.3)"/></svg>
+              15 May 2026 9:00 am
+            </div>
+          </div>
+          <div style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.1);border-radius:8px;padding:8px 16px;font-size:13px;">
+            <span>🔄</span> Automatic Campaign Outbound <span style="color:var(--green);font-weight:700;">On ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIAL ========== -->
+<section class="testimonial-section animate">
+  <div class="container">
+    <h2>Casos de sucesso</h2>
+    <p class="subtitle">Ouça diretamente de um dos nossos clientes como a Patagon AI transformou o processo de vendas deles e os resultados que obtiveram nos primeiros 30 dias</p>
+    <div class="testimonial-card">
+      <div class="testimonial-video">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.7) 100%);"></div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;color:rgba(255,255,255,0.4);">[Imagem: Vídeo depoimento - pessoa com óculos em fundo amarelo]</div>
+        <div class="testimonial-badge">Bewe</div>
+        <div class="testimonial-quote" style="position:relative;z-index:2;">"No primeiro mês alcançamos mais de 500 agendamentos, 2,5 vezes mais comparado ao que gerávamos antes, e tivemos um mês recorde em vendas."</div>
+        <button class="play-btn" style="z-index:2;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1e1d1d"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMPARISON TABLE ========== -->
+<section class="comparison-section animate">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-tag">Comparação</p>
+      <h2>O que outras soluções não te entregam</h2>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-patagon col-patagon-header">PatagonAI</th>
+            <th class="col-other">Chatbots genéricos</th>
+            <th class="col-other">Equipe manual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">Características</td>
+            <td class="cell-patagon"></td>
+            <td class="cell-other"></td>
+            <td class="cell-other"></td>
+          </tr>
+          <tr>
+            <td>Qualificação inteligente</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>IA com seus critérios personalizados</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Somente fluxos predefinidos</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Inconsistente e lento</span></td>
+          </tr>
+          <tr>
+            <td>Agendamento automático</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>Agendamento automático de leads</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Não disponível</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Manual, os leads são perdidos</span></td>
+          </tr>
+          <tr>
+            <td>Tempo de resposta</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>Em segundos, 24h por dia</span></td>
+            <td class="cell-other"><span class="check-g">✓</span> <span>Em segundos</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>5-30 minutos</span></td>
+          </tr>
+          <tr>
+            <td>Otimização de campanhas</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>Enviar conversas para Meta/Google</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Não disponível</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Não disponível</span></td>
+          </tr>
+          <tr>
+            <td>Atribuição no WhatsApp</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>Campanha, conjunto de anúncios, anúncio, palavra-chave</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Não disponível</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Impossível</span></td>
+          </tr>
+          <tr>
+            <td>Follow-up automático</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>Contata automaticamente leads frios</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Não disponível</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Esquecido</span></td>
+          </tr>
+          <tr>
+            <td>Impacto no CPA</td>
+            <td class="cell-patagon"><span class="check-g">✓</span> <span>-68% em média</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Sem impacto mensurável</span></td>
+            <td class="cell-other"><span class="x-mark">✕</span> <span>Sem impacto mensurável</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="faq-section animate">
+  <div class="container">
+    <h2>Perguntas frequentes</h2>
+    <p class="subtitle">Tem dúvidas sobre nossos serviços? Encontre respostas para as perguntas mais frequentes aqui.</p>
+    
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Com quais CRMs vocês se integram?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">Com qualquer CRM que tenha API. Conectores nativos incluem HubSpot, Salesforce, Pipedrive, Microsoft Dynamics, Zoho, Zendesk e mais.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Uma pessoa pode assumir uma conversa?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">Sim. Os representantes podem entrar na mesma conversa a qualquer momento e assumir o controle.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Quanto tempo leva o onboarding?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">De um dia a várias semanas, dependendo das integrações e da complexidade interna.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Com que rapidez vocês respondem? É 24/7?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">Os benchmarks típicos dos nossos agentes de chat são &lt;3 segundos para a primeira resposta e cobertura 24/7.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Quais idiomas são suportados?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">A interface da plataforma está em espanhol, português e inglês. Nossos agentes de IA conseguem conversar em 30+ idiomas.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Quais canais vocês suportam hoje?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">WhatsApp hoje. Instagram, Messenger, SMS e e-mail estão no roadmap.</div>
+    </div>
+    <div class="faq-item" data-faq>
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>O que conta como um "lead qualificado"?</span>
+        <span class="faq-arrow">&#8744;</span>
+      </div>
+      <div class="faq-answer">Definimos com você. Os critérios são totalmente personalizáveis por negócio.</div>
+    </div>
+    
+    <div class="faq-cta">
+      <p class="faq-cta-text"><strong>Ainda tem perguntas?</strong> Entre em contato conosco para obter mais informações.</p>
+      <a href="#" class="btn-whatsapp-green">Fale conosco <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRUST BADGES ========== -->
+<section class="trust-section animate">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-card meta-card">
+        <div class="meta-inner">
+          <div class="meta-logo-box">
+            <span class="meta-icon">∞ Meta</span>
+            <span class="meta-sub">Business Partner</span>
+          </div>
+          <h4>Somos um Meta Business Partner certificado,</h4>
+        </div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">🔒</div>
+        <h4>Dados criptografados de ponta a ponta</h4>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">💬</div>
+        <h4>+50 milhões de conversas processadas</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="container">
+    <div class="arrows">
+      <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 60L30 20M30 20L20 32M30 20L40 32" stroke="var(--khaki)" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+        <path d="M60 70L60 15M60 15L48 30M60 15L72 30" stroke="var(--khaki)" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+        <path d="M90 60L90 20M90 20L80 32M90 20L100 32" stroke="var(--khaki)" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+    </div>
+    <h2>Leads mais qualificados,<br>custo mais baixo</h2>
+    <p class="subtitle">IA que qualifica, agenda e otimiza suas campanhas automaticamente.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Começar grátis</a>
+      <a href="#" class="btn-outline">Fale conosco <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+    </div>
+    <div class="cta-note">
+      <span class="check-blue">✓</span>
+      <span>Média de nossos clientes: -68% de CPA e +50% de conversão de leads qualificados</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <a href="#" class="footer-logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 15L20 75H35L50 45L65 75H80L50 15Z" fill="#c2aa8f"/>
+          <path d="M35 55L20 85H35L42 70L35 55Z" fill="#edd5b2" opacity="0.7"/>
+          <path d="M65 55L80 85H65L58 70L65 55Z" fill="#edd5b2" opacity="0.7"/>
+        </svg>
+        PATAGON AI
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 PatagonAI. Todos os direitos reservados.</span>
+      <a href="#">Política de privacidade</a>
+      <a href="#">Termos de serviço</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// FAQ Accordion
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  // Toggle
+  if (!wasOpen) item.classList.add('open');
+}
+
+// Scroll reveal animation
+function handleScrollReveal() {
+  const elements = document.querySelectorAll('.animate');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  elements.forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', handleScrollReveal);
+</script>
+</body>
+</html>
